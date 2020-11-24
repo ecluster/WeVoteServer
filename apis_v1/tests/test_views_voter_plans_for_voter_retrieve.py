@@ -19,4 +19,12 @@ class WeVoteAPIsV1TestsVoterPlansForVoterRetrieve(TestCase):
         response = self.client.get(self.voter_plans_for_voter_retrieve_url)
         json_data = json.loads(response.content.decode())
         self.assertEqual('status' in json_data, True, "status expected in the json response, and not found")
-        self.assertEqual(json_data['status'], 'VOTER_PLANS_RETRIEVE_MISSING_VOTER_WE_VOTE_ID')
+        self.assertEqual(json_data['status'],
+                         'VOTER_PLANS_RETRIEVE_MISSING_VOTER_WE_VOTE_ID ',
+                         "status = {status} Expected status VOTER_PLANS_RETRIEVE_MISSING_VOTER_WE_VOTE_ID ".format(status=json_data['status']))
+
+        self.assertEqual(len(json_data["voter_plan_list"]), 0,
+                         "Expected voter_plan_list to have length 0, "
+                         "actual length = {length}".format(length=len(json_data['voter_plan_list'])))
+
+    
